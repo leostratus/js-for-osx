@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>OSX Automation With JavaScript</title>
+    <link rel="stylesheet" type="text/css" href="build/build.css">
+  </head>
+  <body>
+    <article>
+      <section>
+        <h1>OSX Automation With JavaScript</h1>
+      </section>
+      <section>
+        <h2>Hello JSConfUY!</h2>
+      </section>
+      <section><img src="images/do.png"></section>
+      <section>
+        <h2>WE'RE HIRING</h2><img src="images/sammy.png" class="sammy">
+        <h2>do.co/bestjobever</h2>
+      </section>
+      <section><img src="images/devices.png"></section>
+      <section>
+        <h2>Good Things</h2>
+        <ul>
+          <li>Battery life is A+</li>
+          <li>The warranty covers a lot</li>
+          <li>aluminium case resistent to clumsy Angelina</li>
+          <li>Cocoa APIs are pretty nice to work with</li>
+          <li>App Store UX guidelines ensure a minimum standard</li>
+        </ul>
+      </section>
+      <section>
+        <h2>Bad Things</h2>
+        <ul>
+          <li>$$$!</li>
+          <li>Developer Program costs $</li>
+          <li>App Store will reject you for dumb reasons</li>
+          <li>Not as easy to mod as Android</li>
+        </ul>
+      </section>
+      <section class="white"><img src="images/handcuffs.jpg"></section>
+      <section>
+        <h2>ALL PROPRIETARY CODE/APIs </h2>
+        <h2>COME WITH GOLDEN HANDCUFFS!</h2>
+      </section>
+      <section>
+        <h2>Why Care?</h2>
+        <ul>
+          <li>JS is the first programming language for many </li>
+          <li>JS all the things! e.g. Pebble, Raspberry Pi</li>
+          <li>... I void warranties, push on things, break things just because >:)</li>
+        </ul>
+      </section>
+      <section>
+        <h2 class="bullet">Spoiler:</h2>
+        <h2 class="bullet">Pain Ahead</h2>
+      </section>
+      <section>
+        <h2>Writing your first JS for OSX</h2>
+        <h3>Important Note: Only available in Yosemite+</h3>
+      </section>
+      <section>
+        <h2 class="bullet">Some terms you'll come across:</h2>
+        <h3 class="bullet">OSAScript: "Open Script Architecture"</h3>
+        <h3 class="bullet">JXA: {J}avaScript for OS{X} {A}utomation</h3>
+      </section>
+      <section>
+        <h2>Syntax</h2>
+        <pre><code class="language-javascript">//Properties:
+Safari.name
+//Elements: 
+Safari.documents[0]
+//Commands: 
+Safari.open(...)
+//Classes: 
+Safari.Document(...)
+</code></pre>
+      </section>
+      <section>
+        <h2>Confusion:</h2>
+        <blockquote>"In JS for OS X parenthesis are only allowed when calling a method if you pass arguments to it. If you use parenthesis with no arguments, you will get a runtime error."</blockquote>
+      </section>
+      <section>
+        <h2>Experiment with the osascript REPL</h2>
+        <pre><code class="language-javascript">osascript -l JavaScript -i
+</code></pre>
+      </section>
+      <section>
+        <h2>JS via Automator Demo</h2>
+        <ul>
+          <li>First scripts were done via the 'Automator' creating a 'workflow'</li>
+          <li>Only way to create 'speech commands' (?)</li>
+        </ul>
+      </section>
+      <section>
+        <video width="320" height="240" controls>
+          <source src="images/picardcomputer.mp4" type="video/mp4">Your browser does not support the video tag.
+        </video>
+      </section>
+      <section><img src="images/wired.png"></section>
+      <section class="white"><img src="images/tux.png"></section>
+      <section>
+        <h2>Confusing Decision: Where to write the code?</h2>
+        <ul>
+          <li>In 'Automator' using 'workflow builder'?</li>
+          <li>In Apple's 'ScriptEditor'?</li>
+          <li>... anywhere else? Hmm.</li>
+        </ul>
+      </section>
+      <section>
+        <h2>Apple says: Use the ScriptEditor</h2>
+      </section>
+      <section><img src="images/applescript1.png"></section>
+      <section><img src="images/applescript2.png"></section>
+      <section><img src="images/applescript3.png"></section>
+      <section><img src="images/applescript4.png"></section>
+      <section>
+        <h2>Also:</h2>
+        <ul>
+          <li>Syntax highlighting doesn't 'work' one newly written code until you run the app</li>
+          <li>No tabbed windows FFS</li>
+          <li>This is dumb let's stop now</li>
+        </ul>
+      </section>
+      <section>
+        <h2 class="bullet">Advice on using the ScriptEditor</h2>
+        <h2 class="bullet">~ JUST DON'T ~</h2>
+      </section>
+      <section>
+        <h2>Exceptions to this rule:</h2>
+        <ul>
+          <li>Bundling your code into a standalone .app</li>
+          <li>Use the Library browser/documentation viewer</li>
+        </ul>
+      </section>
+      <section>
+        <h2>Use Node Instead</h2>
+      </section>
+      <section><img src="images/hacking1.gif"></section>
+      <section>
+        <pre><code class="language-javascript">var osascript = require('osascript');</code></pre>
+      </section>
+      <section>
+        <pre><code class="language-javascript">var osascript = require('osascript');
+var fs = require('fs');
+
+// Run JavaScript file through OSA
+fs.createReadStream('jxa.js')
+  .pipe(osascript())
+  .pipe(process.stdout);
+  </code></pre>
+      </section>
+      <section>
+        <pre><code class="language-javascript">// jxa.js
+
+app = Application.currentApplication()
+app.includeStandardAdditions = true
+app.say("Hello, JSConf Uruguay") 
+</code></pre>
+      </section>
+      <section>
+        <h2>Let's run it!</h2>
+      </section>
+      <section>
+        <h2>JXA Modules on NPM</h2>
+        <h3>http://www.npmjs.com/browse/keyword/jxa</h3>
+      </section>
+      <section>
+        <h2>Confusing Error: "AppleEvent handler failed. Error -10000"</h2>
+      </section>
+      <section>
+        <h2 class="bullet">Where can I find more verbose error information?</h2>
+        <h2 class="bullet">Console.app!</h2>
+      </section>
+      <section>
+        <h2>Tip: Get the string representation of an object</h2>
+        <pre><code class="language-javascript">function stringifyObj(specifier) {
+  return Automation.getDisplayString(specifier);
+}
+</code></pre>
+      </section>
+      <section>
+        <h2>Executing Shell Scripts</h2>
+        <pre><code class="language-javascript">var host = "digitalocean.com"
+app.doShellScript("ping -c1" + host);'
+</code></pre>
+      </section>
+      <section>
+        <h2>Tip: ES6 Features are available</h2>
+      </section>
+      <section>
+        <h2>splats/spread operator</h2>
+        <pre><code class="language-javascript">var a = [1, 2, 3, 4]
+var b = [5, 6, 7, 8]
+var concated = [...a, ...b]
+
+//concated
+//#    => [1, 2, 3, 4, 5, 6, 7, 8]
+</code></pre>
+      </section>
+      <section>
+        <h2>Array and Object Destructuring</h2>
+        <pre><code class="language-javascript">var a = 1
+var b = 2
+[a, b] = [b, a]
+//#    => [2, 1]
+//a
+//#    => 2
+//b
+//#    => 1
+</code></pre>
+      </section>
+      <section>
+        <h2>JavaScript-ObjC Bridge</h2>
+      </section>
+      <section>
+        <pre><code class="language-javascript">ObjC.import('Cocoa');
+str = $.NSString.alloc.initWithUTF8String('stringy string');
+</code></pre>
+      </section>
+      <section>
+        <pre><code class="language-javascript">// Library/Script Libraries/toolbox.scpt
+toolbox = Library('toolbox')
+toolbox.log('hi hi')
+</code></pre>
+      </section>
+      <section>
+        <h2>3rd Party Code</h2>
+        <h3>Browserify</h3>
+        <h3>(see references)</h3>
+      </section>
+      <section>
+        <h2>Network Requests</h2>
+        <ul>
+          <li>Use doShellScript and curl </li>
+          <li>Use NSURLRequest via JS-ObjC Bridge</li>
+          <li>Import a JS lib to do it? (untested)</li>
+        </ul>
+      </section>
+      <section>
+        <h2>Summary</h2>
+        <ul>
+          <li>Needs a lot of polish by Apple</li>
+          <li>Easiest for those with Node and Cocoa/Obj-C to learn</li>
+        </ul>
+      </section>
+      <section>
+        <h2>Would I do this again?</h2>
+        <h2>No.</h2>
+      </section>
+      <section>
+        <h2>References Used</h2>
+        <ul>
+          <li><a href="http://devstreaming.apple.com/videos/wwdc/2014/306xxjtg7uz13v0/306/306_hd_javascript_for_automation.mov?dl=1">WWDC14: JS for OSX Automation [Video]</a></li>
+          <li><a href="https://developer.apple.com/library/mac/releasenotes/InterapplicationCommunication/RN-JavaScriptForAutomation/">Official Apple Release Notes</a></li>
+          <li><a href="https://github.com/afabbro/notes/blob/master/js-for-automation-wwdc-2014.md">Angelina's Cranky Notes on Aforementioned Video</a></li>
+          <li><a href="http://github.com/dtinth/JXA-Cookbook/wiki/">The JXA Cookbook</a></li>
+          <li><a href="http://developer.telerik.com/featured/javascript-os-x-automation-example/">JS Automation by Example</a></li>
+          <li><a href="http://tylergaw.com/articles/building-osx-apps-with-js">Building OSX Apps with JS</a></li>
+        </ul>
+      </section>
+      <section>
+        <h2>Thank You!</h2>
+        <h3>@hopefulcyborg</h3>
+        <h3>cyborg@digitalocean.com</h3>
+      </section>
+    </article>
+    <script src="build/build.js"></script>
+  </body>
+</html>
